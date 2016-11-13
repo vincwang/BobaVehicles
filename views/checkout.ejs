@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Check Out</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+  <script>
+  function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  function buy() {
+    //console.log($('#vprice').text())
+    $.ajax({
+      method: "POST",
+      url: "checkout/buyout",
+      data: { itemid: getParameterByName('itemid', window.location.href),
+              price: $('#vprice').text()}
+    }).done(function(response) {
+      window.location.replace('/myaccount');
+    });
+  }
+  function bid() {
+    if ($('#mybid').val() > <%=vehicle.minimumprice%> && $('#mybid').val() > <%=vehicle.currentbid%> ) {
+      $.ajax({
+        method: "POST",
+        url: "checkout/bid",
+        data: { itemid: getParameterByName('itemid', window.location.href),
+                bidprice: $('#mybid').val()}
+      }).done(function(response) {
+        window.location.replace('/myaccount');
+      });
+    } else {
+        window.alert("You must enter a price higher than the currentbid and minimum bid")
+    }
+  }
+  </script>
+</head>
+<body>
+ <% include header.ejs%>
+  <div class="container-fluid">
+    <div class="content-wrapper">
+    <div class="item-container">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <center>
+              <img id="item-display" src="./images/default-car.jpg" alt=""></img>
+            </center>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="product-title"><%=vehicle.brand%> <%=vehicle.model%> <%=vehicle.year%> </div>
+          <div class="product-desc">Sold By <%=sup.userName%></div>
+          <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+          <hr>
+          <div class="product-price" id="vprice">Buy out price: $<%=vehicle.price%></div>
+          <div class="product-stock">In Stock</div>
+          <% if (vehicle.biddable == 1) { %>
+              <h4 class="bid-price">Minimum Bid Price: $<%= vehicle.minimumprice%></h4>
+              <h4 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
+          <%}%>
+          <hr>
+          <div class="btn-group">
+            <button type="button" class="btn btn-success" onclick="buy()">
+              Buy Out
+            </button>
+          </div>
+          <br><br><br>
+          <div class="input-group btn-group">
+            <span class="input-group-btn">
+              <button class="btn btn-danger" type="button" onclick="bid()">Bid with price</button>
+            </span>
+            <input type="text" class="form-control" placeholder="enter your bid price here..." id="mybid">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-md-12 product-info">
+          <ul id="myTab" class="nav nav-tabs nav_tabs">
+
+            <li class="active"><a href="#service-one" data-toggle="tab">PRODUCT INFO</a></li>
+            <li><a href="#service-three" data-toggle="tab">REVIEWS</a></li>
+
+          </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="service-one">
+              <section class="container product-info">
+                Test test test
+              </section>
+            </div>
+          <div class="tab-pane fade" id="service-two">
+            <section class="container">
+            </section>
+          </div>
+          <div class="tab-pane fade" id="service-three">
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</html>

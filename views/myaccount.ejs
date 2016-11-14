@@ -1,1 +1,65 @@
-<p>test</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Account</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <script
+    src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+    crossorigin="anonymous"></script>
+    <script>
+
+    function logout() {
+      $.ajax({
+        method: "POST",
+        url: "myaccount/logout"
+      }).done(function(response) {
+        window.location.replace('/login');
+      });
+    }
+    </script>
+</head>
+
+<body>
+    <% include header.ejs%>
+        <div class="container" style="padding-top: 60px;">
+            <h1 class="page-header">My Profile</h1>
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="text-center">
+                        <img src="http://graphics.wsj.com/six-degrees-of-lebron-james/img/LeBron_head.jpg" class="avatar img-circle img-thumbnail" alt="avatar" width="250">
+                    </div>
+                </div>
+                <!-- edit form column -->
+                <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                    <form class="form-horizontal">
+                        <div>
+                            <label class="col-lg-3 control-label">Name:</label>
+                            <div class="col-lg-8">
+                                <label class="form-control">Namelkj</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-3 control-label">Name:</label>
+                            <div class="col-lg-8">
+                                <label class="form-control">Namelkj</label>
+                            </div>
+                        </div>
+                        <div class="btn-group col-lg-3">
+                          <button type="button" class="btn btn-danger" onclick="logout()">
+                            Log Out
+                          </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</html>

@@ -7,14 +7,13 @@ var connect = mysql.connect;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var userLoggedIn = false;
-	userLoggedIn = (req.cookies.userid !== null);
+	userLoggedIn = (req.cookies.userid != null);
   res.render('login',
   	{
       loggedin: userLoggedIn
   	});
 });
 
-//doesnt work
 router.post('/process', function(req,res){
   console.log("post from log in");
   var username = req.body.userName;
@@ -28,6 +27,7 @@ router.post('/process', function(req,res){
       res.redirect('/?user=' + username);
     } else {
       console.log("bad password!");
+      res.send("success");
     }
   });
 })

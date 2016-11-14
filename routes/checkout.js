@@ -13,7 +13,11 @@ var supplier;
 router.get('/', function(req, res, next) {
 	var itemid = req.query.itemid;
 	var userLoggedIn = false;
-	userLoggedIn = (req.cookies.userid !== null);
+	userLoggedIn = (req.cookies.userid != null);
+	if (userLoggedIn == false) {
+		console.log("Please log in");
+		res.redirect('/login');
+	}
 	connect.query('SELECT * FROM items WHERE itemid = ' + itemid + ' limit 1', function(err, rows, fields) {
   	if (err) throw err;
 		vehicleInfo = rows[0];
@@ -34,6 +38,7 @@ router.post('/buyout', function(req, res) {
 	console.log(req.cookies);
 	var userid = req.cookies.userid;
 	var price = req.body.price.substring(1);
+	console.log(price);
 	var itemid = req.body.itemid;
 	var VehicleTransaction  = {item: itemid, buyer: userid, transtype: 1, price: price, transtime: new Date()};
 	var query = connect.query('INSERT INTO VehicleTransaction SET ?', VehicleTransaction, function(err, result) {

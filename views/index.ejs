@@ -21,7 +21,9 @@
         <%  } else {  %>
               <h3 class="bid-price">Current Bid: $<%= items[i].currentbid%></h3>
         <% }
-        } %>
+      } else { %>
+        <h3 class="bid-price">Not biddable</h3>
+      <%}%>
         <p><a href= "./checkout?itemid=<%= items[i].itemid%>" class="btn btn-primary" role="button">View</a></p>
       </div>
     </div>

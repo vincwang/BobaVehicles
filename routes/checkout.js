@@ -6,9 +6,6 @@ var mysql = require('../jsHelper/mysql.js');
 var connect = mysql.connect;
 
 
-var vehicleInfo;
-var supplier;
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var itemid = req.query.itemid;
@@ -20,15 +17,19 @@ router.get('/', function(req, res, next) {
 	}
 	connect.query('SELECT * FROM items WHERE itemid = ' + itemid + ' limit 1', function(err, rows, fields) {
   	if (err) throw err;
-		vehicleInfo = rows[0];
+		var vehicleInfo = rows[0];
 		connect.query('SELECT * FROM users WHERE userid = ' + vehicleInfo.supplier + ' limit 1', function(err, rows, fields) {
 			if (err) throw err;
-			supplier = rows[0];
-			res.render('checkout',
-			{
-				vehicle: vehicleInfo,
-				sup: supplier,
-				loggedin: userLoggedIn
+			var supplier = rows[0];
+			connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ req.cookies.userid + ') as isSupplier', function(err, rows, fields) {
+				var isSupplier = rows[0].isSupplier;
+				res.render('checkout',
+				{
+					isSupplier: isSupplier,
+					vehicle: vehicleInfo,
+					sup: supplier,
+					loggedin: userLoggedIn
+				});
 			});
 		});
 	});

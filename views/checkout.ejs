@@ -73,18 +73,22 @@
               <h4 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
           <%}%>
           <hr>
-          <div class="btn-group">
-            <button type="button" class="btn btn-success" onclick="buy()">
-              Buy Out
-            </button>
-          </div>
-          <br><br><br>
-          <div class="input-group btn-group">
-            <span class="input-group-btn">
-              <button class="btn btn-danger" type="button" onclick="bid()">Bid with price</button>
-            </span>
-            <input type="text" class="form-control" placeholder="enter your bid price here..." id="mybid">
-          </div>
+          <% if (isSupplier == 1) { %>
+            <div class="btn-group">
+              <button type="button" class="btn btn-success" onclick="buy()">
+                Buy Out
+              </button>
+            </div>
+            <br><br><br>
+            <div class="input-group btn-group">
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="button" onclick="bid()">Bid with price</button>
+              </span>
+              <input type="text" class="form-control" placeholder="enter your bid price here..." id="mybid">
+            </div>
+          <%} else {%>
+            <h3>As a supplier, you aren't allowed buy vehicles</h3>
+          <%}%>
         </div>
       </div>
     </div>

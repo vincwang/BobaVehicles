@@ -32,7 +32,9 @@
     });
   }
   function bid() {
-    if ($('#mybid').val() > <%=vehicle.minimumprice%> && $('#mybid').val() > <%=vehicle.currentbid%> ) {
+    var minprice = <%=vehicle.minimumprice%>;
+    var curBid = <%=vehicle.currentbid%>;
+    if ($('#mybid').val() > minprice && $('#mybid').val() > curBid) {
       $.ajax({
         method: "POST",
         url: "checkout/bid",
@@ -73,7 +75,7 @@
               <h4 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
           <%}%>
           <hr>
-          <% if (locals.isSupplier && isSupplier == 0) { %>
+          <% if (isSupplier == 0) { %>
             <div class="btn-group">
               <button type="button" class="btn btn-success" onclick="buy()">
                 Buy Out

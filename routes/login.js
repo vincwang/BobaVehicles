@@ -24,7 +24,11 @@ router.post('/process', function(req,res){
     if (pass === rows[0].password) {
       console.log("good!");
       res.cookie('userid', username, {expire: new Date() + 9999});
-      res.redirect('/?user=' + username);
+      connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ username + ') as isSupplier', function(err, rows, fields) {
+				var isSupplier = rows[0].isSupplier;
+        res.cookie('isSupplier', isSupplier, {expire: new Date() + 9999});
+        res.redirect('/?user=' + username);
+      })
     } else {
       console.log("bad password!");
       res.send("success");

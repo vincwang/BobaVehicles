@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 			if (err) throw err;
 			var supplier = rows[0];
 			connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ req.cookies.userid + ') as isSupplier', function(err, rows, fields) {
-				var isSupplier = rows[0].isSupplier;
+				var isSupplier = req.cookies.isSupplier;
 				res.render('checkout',
 				{
 					isSupplier: isSupplier,
@@ -41,7 +41,7 @@ router.post('/buyout', function(req, res) {
 	var price = req.body.price.substring(1);
 	console.log(price);
 	var itemid = req.body.itemid;
-	var VehicleTransaction  = {item: itemid, buyer: userid, transtype: 1, price: price, transtime: new Date()};
+	var VehicleTransaction  = {item: itemid, buyer: userid, transtype: 0, price: price, transtime: new Date()};
 	var query = connect.query('INSERT INTO VehicleTransaction SET ?', VehicleTransaction, function(err, result) {
 		console.log(query.sql);
 		if (err) throw err;

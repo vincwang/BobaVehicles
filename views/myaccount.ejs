@@ -103,7 +103,7 @@
                   </div>
                 </div>
               </div>
-
+              <h2>Active Listings</h2>
               <div class="container">
                 <div class="row">
                   <div class="span5">
@@ -114,22 +114,28 @@
                             <th>Brand</th>
                             <th>Model</th>
                             <th>Listed Price</th>
-                            <th>Sold Price</th>
-                            <th>Delivery Status</th>
+                            <th>Biddable</th>
+                            <th>Min Bidding Price</th>
+                            <th>Current Bid</th>
+                            <th>Bid End Date</th>
                             <tbody>
-                              <% for (var i = 0; soldItems != null && i < soldItems.length; i ++) { %>
+                              <% for (var i = 0; activeItems != null && i < activeItems.length; i ++) { %>
                                 <tr>
-                                    <td><%= soldItems[i].itemid%></td>
-                                    <td><%= soldItems[i].brand%></td>
-                                    <td><%= soldItems[i].model%></td>
-                                    <td><%= soldItems[i].price%></td>
-                                    <td><%= soldItems[i].soldAt%></td>
-                                    <%if (soldItems[i].deliverytime == null) {%>
-                                      <td><span class="label label-warning">Not Delivered</span>
+                                    <td><%= activeItems[i].itemid%></td>
+                                    <td><%= activeItems[i].brand%></td>
+                                    <td><%= activeItems[i].model%></td>
+                                    <td><%= activeItems[i].price%></td>
+                                    <%if (activeItems[i].biddable == 0) {%>
+                                      <td><span class="label label-warning">Not Biddable</span></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
                                     <%} else {%>
-                                      <td><span class="label label-success">Delivered</span>
+                                      <td><span class="label label-success">Biddable</span></td>
+                                      <td><%= activeItems[i].minimumprice%></td>
+                                      <td><%= activeItems[i].currentbid%></td>
+                                      <td><%= activeItems[i].bidendtime%></td>
                                     <%}%>
-                                    </td>
                                 </tr>
                               <%}%>
                             </tbody>

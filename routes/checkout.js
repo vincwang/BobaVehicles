@@ -21,15 +21,13 @@ router.get('/', function(req, res, next) {
 		connect.query('SELECT * FROM users WHERE userid = ' + vehicleInfo.supplier + ' limit 1', function(err, rows, fields) {
 			if (err) throw err;
 			var supplier = rows[0];
-			connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ req.cookies.userid + ') as isSupplier', function(err, rows, fields) {
-				var isSupplier = req.cookies.isSupplier;
-				res.render('checkout',
-				{
-					isSupplier: isSupplier,
-					vehicle: vehicleInfo,
-					sup: supplier,
-					loggedin: userLoggedIn
-				});
+			var isSupplier = req.cookies.isSupplier;
+			res.render('checkout',
+			{
+				isSupplier: isSupplier,
+				vehicle: vehicleInfo,
+				sup: supplier,
+				loggedin: userLoggedIn
 			});
 		});
 	});

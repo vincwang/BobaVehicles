@@ -12,7 +12,8 @@ router.get('/', function(req, res) {
 	connect.query('SELECT * FROM BobaVehicles.Items WHERE sold = 0', function(err, rows, fields) {
 		res.render('index', {
   			items: rows,
-				loggedin: userLoggedIn
+				loggedin: userLoggedIn,
+				isSupplier: req.cookies.isSupplier,
   		});
 	});
 });

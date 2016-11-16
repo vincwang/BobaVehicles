@@ -82,12 +82,15 @@
               </button>
             </div>
             <br><br><br>
-            <div class="input-group btn-group">
-              <span class="input-group-btn">
-                <button class="btn btn-danger" type="button" onclick="bid()">Bid with price</button>
-              </span>
-              <input type="text" class="form-control" placeholder="enter your bid price here..." id="mybid">
-            </div>
+            <% if (vehicle.biddable == 1) { %>
+              <div class="input-group btn-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="button" onclick="bid()">Bid with price</button>
+                </span>
+                <input type="text" class="form-control" placeholder="enter your bid price here..." id="mybid">
+              </div>
+            <%}%>
+
           <%} else {%>
             <h3>You aren't allowed buy vehicles now</h3>
           <%}%>

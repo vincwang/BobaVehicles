@@ -26,15 +26,20 @@ router.post('/listvehicle', function(req,res){
     minimumprice: req.body.minimumprice,
     bidendtime: req.body.bidend
   }
+  if (item.biddable == 1) {
+    item.bidendtime += " 23:59:59";
+  } else {
+    item.minimumprice = null;
+    item.bidendtime = null;
+  }
+
   var query = connect.query('INSERT INTO Items SET ?', item, function(err, result) {
     console.log(query.sql);
     if (err) throw err;
   });
 
-
   console.log(item);
-
-  res.send(item);
+  res.redirect('../myaccount');
 })
 
 module.exports = router;

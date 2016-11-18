@@ -9,7 +9,7 @@ connect.connect();
 router.get('/', function(req, res) {
 	var userLoggedIn = false;
 	userLoggedIn = (req.cookies.userid != null);
-	connect.query('SELECT * FROM BobaVehicles.Items WHERE sold = 0', function(err, rows, fields) {
+	connect.query('SELECT * FROM BobaVehicles.Items WHERE sold = 0 ORDER BY listedtime DESC', function(err, rows, fields) {
 		res.render('index', {
   			items: rows,
 				loggedin: userLoggedIn,

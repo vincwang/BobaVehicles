@@ -25,7 +25,11 @@ router.post('/register', function(req,res){
   }
 
   var userType = req.body.type;
+  register(user, userType, req, res);
 
+})
+
+function register(user, userType, req, res) {
   var query = connect.query('INSERT INTO USERS SET ?', user, function(err, result) {
     if (err) throw err;
     var userid = result.insertId;
@@ -50,7 +54,7 @@ router.post('/register', function(req,res){
       });
     }
   });
-})
+}
 
 
 module.exports = router;

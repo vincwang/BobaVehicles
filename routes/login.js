@@ -16,22 +16,22 @@ router.get('/', function(req, res, next) {
 
 router.post('/process', function(req,res){
   console.log("post from log in");
-  var username = req.body.userName;
+  var userEmail = req.body.userEmail;
   var pass = req.body.userPassword;
 
-  connect.query('SELECT password FROM users WHERE userid = ' + username + ' limit 1', function(err, rows, fields) {
+  connect.query('SELECT userid, password FROM users WHERE email = ? limit 1', userEmail, function(err, rows, fields) {
     if (err) throw err;
     if (pass === rows[0].password) {
       console.log("good!");
-      res.cookie('userid', username, {expire: new Date() + 9999});
-      connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ username + ') as isSupplier', function(err, rows, fields) {
+      res.cookie('userid', rows[0].userid, {expire: new Date() + 9999});
+      connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ rows[0].userid + ') as isSupplier', function(err, rows, fields) {
 				var isSupplier = rows[0].isSupplier;
         res.cookie('isSupplier', isSupplier, {expire: new Date() + 9999});
-        res.redirect('/?user=' + username);
+        res.redirect('/?user=' + rows[0].userid);
       })
     } else {
       console.log("bad password!");
-      res.send("success");
+      res.send("bad password!");
     }
   });
 })

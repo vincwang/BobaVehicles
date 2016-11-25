@@ -19,14 +19,23 @@ router.get('/', function(req, res, next) {
 router.post('/register', function(req,res){
   var user = {
     userName: req.body.username,
+    email: req.body.email,
     password: req.body.password,
     address: req.body.address,
     bankacct: req.body.bank
   }
 
   var userType = req.body.type;
-  register(user, userType, req, res);
-
+  var email = req.body.email;
+  //check if email exists already
+  connect.query('SELECT * FROM USERS WHERE email = ?', email, function(err, rows, fields) {
+    if (err) throw err;
+    if (rows.length != 0) {
+      res.send('Email ' + email +  ' is registered already');
+    } else {
+      register(user, userType, req, res);
+    }
+  });
 })
 
 function register(user, userType, req, res) {
@@ -41,7 +50,7 @@ function register(user, userType, req, res) {
       query = connect.query('INSERT INTO Buyers SET ?', buyer, function(err, result) {
         if (err) throw err;
         console.log(query);
-        res.redirect('../login');
+        res.send('success');
       });
     } else {
       var supplier = {
@@ -50,7 +59,7 @@ function register(user, userType, req, res) {
       query = connect.query('INSERT INTO Suppliers SET ?', supplier, function(err, result) {
         if (err) throw err;
         console.log(query);
-        res.redirect('../login');
+        res.send('success');
       });
     }
   });

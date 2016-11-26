@@ -24,7 +24,8 @@ router.post('/listvehicle', function(req,res){
     price: req.body.price,
     biddable: req.body.biddable,
     minimumprice: req.body.minimumprice,
-    bidendtime: req.body.bidend
+    bidendtime: req.body.bidend,
+    listedtime: new Date()
   }
   if (item.biddable == 1) {
     item.bidendtime += (" " + req.body.bidendtime + ":00");

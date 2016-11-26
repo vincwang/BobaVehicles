@@ -8,6 +8,21 @@
 <body>
  <% include header.ejs%>
 
+	<div class="row searchbar">
+        <div class="col-md-4">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-md" placeholder="BMW" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-md" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+
  <div class="row vehicle-list">
   <% for (var i = 0; i < items.length; i ++) {  %>
   <div class="col-sm-6 col-md-4">

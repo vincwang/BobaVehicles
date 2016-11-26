@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
+var cron = require('cron');
+
+
 
 
 var routes = require('./routes/index');
@@ -52,6 +55,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var cronJob = cron.job("* * * * * *", function(){
+    // perform operation e.g. GET request http.get() etc.
+    console.log('cron job completed');
+});
+cronJob.start();
 
 
 

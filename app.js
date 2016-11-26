@@ -4,11 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
+var mysql = require('./jsHelper/mysql.js');
+
 var cron = require('cron');
-
-
-
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
@@ -16,6 +14,8 @@ var checkout = require('./routes/checkout');
 var myaccount = require('./routes/myaccount');
 var sell = require('./routes/sell');
 var signup = require('./routes/signup');
+
+var bidding = require('./jsHelper/bidding.js');
 
 var app = express();
 
@@ -56,11 +56,18 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// var cronJob = cron.job("* * * * * *", function(){
-//     // perform operation e.g. GET request http.get() etc.
-//     console.log('cron job completed');
-// });
-// cronJob.start();
+var cronJob = cron.job("*/5 * * * * *", function(){
+    var date = new Date();
+    //var i = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    //var i = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    // var i = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // console.log('cron job completed ' + i);
+
+    bidding.bidToTrans(mysql.connect);
+    bidding.expireBids(mysql.connect);
+
+});
+cronJob.start();
 
 
 

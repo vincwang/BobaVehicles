@@ -56,11 +56,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var cronJob = cron.job("* * * * * *", function(){
-    // perform operation e.g. GET request http.get() etc.
-    console.log('cron job completed');
-});
-cronJob.start();
+// var cronJob = cron.job("* * * * * *", function(){
+//     // perform operation e.g. GET request http.get() etc.
+//     console.log('cron job completed');
+// });
+// cronJob.start();
 
 
 

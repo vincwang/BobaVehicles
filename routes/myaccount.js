@@ -24,12 +24,16 @@ router.get('/', function(req, res, next) {
           });
       });
     } else {
-      res.render('myaccount',
-        {
-          user: user,
-          loggedin: userLoggedIn,
-          isSupplier: req.cookies.isSupplier
-        });
+      var orderHisotry = null;
+      getItemsForBuyers(req.cookies.userid, function(orderHisotry) {
+        res.render('myaccount',
+          {
+            user: user,
+            loggedin: userLoggedIn,
+            orderHisotry: orderHisotry,
+            isSupplier: req.cookies.isSupplier
+          });
+      })
     }
   })
 });
@@ -63,6 +67,21 @@ function getItems(supplier, callback) {
     })
 
   })
+}
+
+function getItemsForBuyers(buyer, callback) {
+  var orderHisotry =  "SELECT table1.*, table2.deliverytime FROM " +
+                      "(SELECT T1.item, T1.buyer, T1.transtype, T1.transtime, T1.price, T2.brand, T2.model, T3.userName as seller " +
+                      "FROM VehicleTransaction as T1, Items as T2, USERS as T3 " +
+                      "WHERE buyer = ? AND T1.item = T2.itemid AND T2.supplier = T3.userid) AS table1 " +
+                      "LEFT JOIN Deliveries AS table2 ON table1.item = table2.item";
+  var query  = connect.query(orderHisotry, [buyer], function(err, rows, fields) {
+    if (err) throw err;
+    var orderHisotry = rows;
+    callback(orderHisotry);
+  });
+
+
 }
 
 

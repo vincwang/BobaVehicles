@@ -145,6 +145,50 @@
                   </div>
                 </div>
               </div>
+            <%} else {%>
+              <h2>Order History</h2>
+              <div class="container">
+                <div class="row">
+                  <div class="span5">
+                    <table class="table table-striped table-condensed">
+                      <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Seller</th>
+                            <th>Purchase Time</th>
+                            <th>Price</th>
+                            <th>Delivery Status</th>
+                            <th>Transaction Type</th>
+                            <tbody>
+                              <% for (var i = 0; orderHisotry != null && i < orderHisotry.length; i ++) { %>
+                                <tr>
+                                    <td><%= orderHisotry[i].item%></td>
+                                    <td><%= orderHisotry[i].brand%></td>
+                                    <td><%= orderHisotry[i].model%></td>
+                                    <td><%= orderHisotry[i].seller%></td>
+                                    <td><%= orderHisotry[i].transtime%></td>
+                                    <td>$<%= orderHisotry[i].price%></td>
+                                    <%if (orderHisotry[i].deliverytime == null) {%>
+                                      <td><span class="label label-danger">Not Delivered</span></td>
+                                    <%} else {%>
+                                      <td><span class="label label-success">Delivered on <%= orderHisotry[i].deliverytime%></span></td>
+                                    <%}%>
+                                    <%if (orderHisotry[i].transtype == 0) {%>
+                                      <td><span class="label label-success">Buy</span></td>
+                                    <%} else {%>
+                                      <td><span class="label label-warning">Bid</span></td>
+                                    <%}%>
+                                </tr>
+                              <%}%>
+                            </tbody>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
             <%}%>
     </div>
 

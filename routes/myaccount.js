@@ -80,9 +80,26 @@ function getItemsForBuyers(buyer, callback) {
     var orderHisotry = rows;
     callback(orderHisotry);
   });
-
-
 }
+
+router.post('/submitReview', function(req, res) {
+	var buyer = req.cookies.userid;
+	var comment = req.body.comment;
+	var stars = req.body.stars;
+  var item = req.body.item;
+
+  var getSupllier = "SELECT supplier FROM Items where itemid = ? LIMIT 1";
+  connect.query(getSupllier, item, function(err, rows, fields) {
+    if (err) throw err;
+    var supplier = rows[0].supplier;
+    var review  = {supplier: supplier, ratedby: buyer, rating: stars, ratingtime: new Date(), comment: comment};
+    console.log(review);
+    var query = connect.query('INSERT INTO Ratings SET ?', review, function(err, result) {
+  		if (err) throw err;
+      res.send('succuss');
+    });
+  })
+});
 
 
 

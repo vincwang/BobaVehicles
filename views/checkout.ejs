@@ -41,7 +41,7 @@
         data: { itemid: getParameterByName('itemid', window.location.href),
                 bidprice: $('#mybid').val()}
       }).done(function(response) {
-        window.location.replace('/myaccount');
+        window.location.reload();
       });
     } else {
         window.alert("You must enter a price higher than the currentbid and minimum bid")
@@ -71,8 +71,9 @@
           <div class="product-price" id="vprice">$<%=vehicle.price%></div>
           <div class="product-stock">In Stock</div>
           <% if (vehicle.biddable == 1) { %>
-              <h4 class="bid-price">Minimum Bid Price: $<%= vehicle.minimumprice%></h4>
-              <h4 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
+              <h5 class="bid-price">Minimum Bid Price: $<%= vehicle.minimumprice%></h4>
+              <h5 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
+              <h5 class="bid-price">Bid Ending Time: <%= vehicle.bidendtime.toLocaleString()%></h4>
           <%}%>
           <hr>
           <% if (isSupplier == 0) { %>

@@ -9,10 +9,18 @@
  <% include header.ejs%>
  <div class="container">
     <div class="row">
+      <br>
+      <br>
+      <% if (wrongPassword == true) { %>
+        <div class="alert alert-danger loginAlert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+            Your account email or password is wrong, try again.
+        </div>
+      <%}%>
         <div class="col-md-offset-5 col-md-3">
           <form role="form" action="/login/process" method="POST">
               <div class="form-login">
-                <br>
                 <h4>Welcome back.</h4>
                 <input type="text" name="userEmail" class="form-control input-sm chat-input" placeholder="Email Address" required/>
                 </br>

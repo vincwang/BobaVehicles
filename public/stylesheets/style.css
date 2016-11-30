@@ -207,3 +207,8 @@ a {
     background:#F90;
     color:#FFF;
 }
+
+.loginAlert {
+    width:50%;
+    margin: auto;
+}

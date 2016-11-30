@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 	userLoggedIn = (req.cookies.userid != null);
   res.render('login',
   	{
-      loggedin: userLoggedIn
+      loggedin: userLoggedIn,
+      wrongPassword: false
   	});
 });
 
@@ -21,7 +22,7 @@ router.post('/process', function(req,res){
 
   connect.query('SELECT userid, password FROM users WHERE email = ? limit 1', userEmail, function(err, rows, fields) {
     if (err) throw err;
-    if (pass === rows[0].password) {
+    if (rows.length == 1 && pass === rows[0].password) {
       console.log("good!");
       res.cookie('userid', rows[0].userid, {expire: new Date() + 9999});
       connect.query('SELECT EXISTS(SELECT * FROM Suppliers WHERE supplierid = '+ rows[0].userid + ') as isSupplier', function(err, rows, fields) {
@@ -31,7 +32,11 @@ router.post('/process', function(req,res){
       })
     } else {
       console.log("bad password!");
-      res.send("bad password!");
+      res.render('login',
+      	{
+          loggedin: false,
+          wrongPassword: true
+      	});
     }
   });
 })

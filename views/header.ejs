@@ -7,15 +7,15 @@
         <!-- navbar header-->
         <div class="collapse navbar-collapse" id="navbarMenuDrop" style="margin:15px 10px 0px 10px;">
             <ul class="nav navbar-nav navbar-right">
-                <li class="menu-content"><a href="./">Home</a></li>
+                <li class="menu-content"><a href="/">Home</a></li>
                 <% if (locals.loggedin && loggedin != false) {
                     if (locals.isSupplier && isSupplier == 1) {%>
-                      <li class="menu-content"><a href="./sell">Sell</a></li>
+                      <li class="menu-content"><a href="/sell">Sell</a></li>
                     <%}%>
-                    <li class="menu-content"><a href="./myaccount">My Account</a></li>
+                    <li class="menu-content"><a href="/myaccount">My Account</a></li>
                     <% } else { %>
-                        <li class="menu-content"><a href="./login">Log In</a></li>
-                        <li class="menu-content"><a href="./signup">Sign Up</a></li>
+                        <li class="menu-content"><a href="/login">Log In</a></li>
+                        <li class="menu-content"><a href="/signup">Sign Up</a></li>
                         <%}%>
             </ul>
             <!-- navbar menu -->

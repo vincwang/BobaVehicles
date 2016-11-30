@@ -22,12 +22,15 @@ router.get('/', function(req, res, next) {
 			if (err) throw err;
 			var supplier = rows[0];
 			var isSupplier = req.cookies.isSupplier;
-			res.render('checkout',
-			{
-				isSupplier: isSupplier,
-				vehicle: vehicleInfo,
-				sup: supplier,
-				loggedin: userLoggedIn
+			connect.query('SELECT R.*, U.userName as Rater FROM Ratings as R, USERS as U WHERE R.ratedby = U.userid AND supplier = ' + vehicleInfo.supplier, function(err, rows, fields){
+				res.render('checkout',
+				{
+					isSupplier: isSupplier,
+					vehicle: vehicleInfo,
+					sup: supplier,
+					loggedin: userLoggedIn,
+					reviews: rows
+				});
 			});
 		});
 	});

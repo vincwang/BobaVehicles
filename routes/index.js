@@ -18,6 +18,15 @@ router.get('/', function(req, res) {
 	});
 });
 
+router.post('/getItems', function(req, res) {
+	var page = req.body.pagenum;
+	var query = connect.query('SELECT * FROM BobaVehicles.Items WHERE sold = 0 ORDER BY listedtime DESC', function(err, rows, fields) {
+		var total = rows.length;
+		
+	});
+});
+
+
 router.post('/search', function(req,res){
 	var userLoggedIn = false;
 	userLoggedIn = (req.cookies.userid != null);
@@ -36,6 +45,8 @@ router.post('/search', function(req,res){
 	  	});
 	});
 });
+
+
 
 
 

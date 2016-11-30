@@ -23,14 +23,22 @@ router.get('/', function(req, res, next) {
 			var supplier = rows[0];
 			var isSupplier = req.cookies.isSupplier;
 			connect.query('SELECT R.*, U.userName as Rater FROM Ratings as R, USERS as U WHERE R.ratedby = U.userid AND supplier = ' + vehicleInfo.supplier, function(err, rows, fields){
-				res.render('checkout',
-				{
-					isSupplier: isSupplier,
-					vehicle: vehicleInfo,
-					sup: supplier,
-					loggedin: userLoggedIn,
-					reviews: rows
-				});
+				var allReviews = rows;
+				var getBids = "SELECT U.userName, B.bidprice, B.bidtime FROM Bid as B, USERS as U " +
+											"WHERE B.buyer = U.userid AND B.item = "+ itemid + " " +
+											"ORDER BY B.bidtime DESC";
+				connect.query(getBids, function(err, rows, fields){
+					var bids = rows;
+					res.render('checkout',
+					{
+						isSupplier: isSupplier,
+						vehicle: vehicleInfo,
+						sup: supplier,
+						loggedin: userLoggedIn,
+						reviews: allReviews,
+						bids: bids
+					});
+				})
 			});
 		});
 	});

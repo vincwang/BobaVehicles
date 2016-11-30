@@ -71,9 +71,22 @@
           <div class="product-price" id="vprice">$<%=vehicle.price%></div>
           <div class="product-stock">In Stock</div>
           <% if (vehicle.biddable == 1) { %>
-              <h5 class="bid-price">Minimum Bid Price: $<%= vehicle.minimumprice%></h4>
-              <h5 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h4>
-              <h5 class="bid-price">Bid Ending Time: <%= vehicle.bidendtime.toLocaleString()%></h4>
+              <h5 class="bid-price">Minimum Bid Price: $<%= vehicle.minimumprice%></h5>
+              <h5 class="bid-price">Current Bid: $<%= vehicle.currentbid%></h5>
+              <h5 class="bid-price">Bid Ending Time: <%= vehicle.bidendtime.toLocaleString()%></h5>
+              <br>
+              <h5 >Bidding history</h5>
+              <% for (var b = 0; b < bids.length; b ++) {  %>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class=""><a><%= bids[b].userName%></a></div>
+                    <div class=""><%= bids[b].bidtime.toLocaleString()%></div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="bid-price">$<%= bids[b].bidprice%></div>
+                  </div>
+                </div>
+              <%}%>
           <%}%>
           <hr>
           <% if (isSupplier == 0) { %>

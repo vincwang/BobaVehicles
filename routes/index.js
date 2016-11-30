@@ -40,6 +40,7 @@ router.post('/search', function(req,res){
 	  			items: rows,
 					loggedin: userLoggedIn,
 					isSupplier: req.cookies.isSupplier,
+					totalPages: 0
 	  	});
 	});
 });

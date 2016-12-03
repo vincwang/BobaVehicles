@@ -45,6 +45,26 @@ router.post('/search', function(req,res){
 	});
 });
 
+router.get('/getCategory', function(req, res) {
+	var userLoggedIn = false;
+	userLoggedIn = (req.cookies.userid != null);
+	var currentPage = req.query.page;
+	if (currentPage == null) {
+		currentPage = 0;
+	}
+	var type = req.query.type;
+	connect.query('SELECT * FROM BobaVehicles.Items WHERE sold = 0 AND vehicletype = ? ORDER BY listedtime DESC', type,function(err, rows, fields) {
+		var totalPages = Math.ceil(rows.length / 18);
+		res.render('index', {
+  			items: rows.slice(currentPage * 18, currentPage * 18 + 18),
+				loggedin: userLoggedIn,
+				isSupplier: req.cookies.isSupplier,
+				totalPages: totalPages,
+				currentPage: currentPage
+  		});
+	});
+});
+
 
 
 

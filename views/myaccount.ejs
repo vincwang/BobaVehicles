@@ -124,6 +124,7 @@
                                         <th>Min Bidding Price</th>
                                         <th>Current Bid</th>
                                         <th>Bid End Date</th>
+                                        <th>Clearance</th>
                                         <tbody>
                                             <% for (var i = 0; activeItems != null && i < activeItems.length; i ++) { %>
                                                 <tr>
@@ -156,6 +157,9 @@
                                                                 <%= activeItems[i].bidendtime%>
                                                             </td>
                                                             <%}%>
+                                                    <td>
+                                                        <button class="btn btn-danger open-discount-window" onclick="setClearance(this);" data-id=<%=activeItems[i].itemid%>>Set Clearance</button>
+                                                    </td>
                                                 </tr>
                                                 <%}%>
                                         </tbody>
@@ -270,6 +274,7 @@
 <script>
     var userRating = 0;
     var itemid;
+    var itemidtodisc;
     $(document).ready(function() {
         //  Check Radio-box
         $(".rating input:radio").attr("checked", false);
@@ -308,6 +313,37 @@
               window.location.replace('/myaccount');
             });
         }
+    }
+
+    $(document).on("click", ".open-discount-window", function() {
+        itemidtodisc = $(this).data('id');
+        //console.log(itemidtodisc);
+    });
+
+    function setClearance(identifier) {
+      itemidtodisc = $(identifier).data('id');
+      console.log(itemidtodisc);
+      var discount = prompt("Please enter a percentage discount", "15%");
+      if (discount != null) {
+        if (discount.indexOf('%') > -1) {
+          discount = discount.substr(0, discount.indexOf('%'));
+        }
+        discount = parseInt(discount);
+        if (discount >= 0 && discount <= 100) {
+          console.log(itemidtodisc);
+          console.log(discount);
+          $.ajax({
+            method: "POST",
+            url: "myaccount/setDiscount",
+            data: { disc: discount,
+                    item: itemidtodisc}
+          }).done(function(response) {
+            window.location.reload(true);
+          });
+        } else {
+          console.log("bad input");
+        }
+      }
     }
 </script>
 

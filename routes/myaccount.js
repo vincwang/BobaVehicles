@@ -101,6 +101,24 @@ router.post('/submitReview', function(req, res) {
   })
 });
 
+router.post('/setDiscount', function(req, res) {
+	var discount = req.body.disc;
+  var item = req.body.item;
+
+  var saleOff = (100 - discount) / 100;
+
+  var updatePrice = "UPDATE Items " +
+                    "SET price = price * ? " +
+                    "WHERE itemid = ?";
+
+  var query = connect.query(updatePrice, [saleOff, item], function(err, rows, fields) {
+    if (err) throw err;
+    console.log(query.sql);
+    res.send('succuss');
+  });
+});
+
+
 
 
 module.exports = router;

@@ -111,10 +111,13 @@ router.post('/setDiscount', function(req, res) {
                     "SET price = price * ? " +
                     "WHERE itemid = ?";
 
+  var setIsOnSale = "UPDATE Items SET isonsale = 1 WHERE itemid = ?";
   var query = connect.query(updatePrice, [saleOff, item], function(err, rows, fields) {
     if (err) throw err;
-    console.log(query.sql);
-    res.send('succuss');
+    query = connect.query(setIsOnSale, [item], function(err, rows, fields) {
+      if (err) throw err;
+        res.send('succuss');
+    });
   });
 });
 

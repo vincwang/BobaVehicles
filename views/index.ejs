@@ -29,12 +29,15 @@
  <div class="row vehicle-list">
   <% for (var i = 0; i < items.length; i ++) {  %>
   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
+    <div class="thumbnail itemlisting">
       <% if (items[i].vehicletype == 'Motor Vehicle') { %>
         <img src="./images/default-car.jpg" alt="./images/default-car.jpg" >
       <%  } else {  %>
         <img src="./images/default-bike.jpg" alt="./images/default-bike.jpg" >
       <% } %>
+        <% if (items[i].isonsale == 1) { %>
+          <h2><span>On Sale!</span></h2>
+        <% } %>
       <div class="caption">
         <h4><%= items[i].brand%> <%= items[i].model%> $<%= items[i].price%> </h4>
         <% if (items[i].biddable == 1) {

@@ -42,12 +42,11 @@
         <h4><%= items[i].brand%> <%= items[i].model%> $<%= items[i].price%> </h4>
         <% if (items[i].biddable == 1) {
             if (items[i].minimumprice > items[i].currentbid) { %>
-              <h5 class="bid-price">Minimum Bid Price: $<%= items[i].minimumprice%></h5>
+              <h2 class="biddinginfo"><span>Minimum Bid Price: $<%= items[i].minimumprice%></span></h2>
         <%  } else {  %>
-              <h5 class="bid-price">Current Bid: $<%= items[i].currentbid%></h5>
+              <h2 class="biddinginfo"><span>Current Bid: $<%= items[i].currentbid%></span></h2>
         <% }
       } else { %>
-        <h5 class="bid-price">Not biddable</h5>
       <%}%>
         <p><a href= "./checkout?itemid=<%= items[i].itemid%>" class="btn btn-primary" role="button">View</a></p>
       </div>

@@ -1,6 +1,7 @@
 # Boba Vehicles
 ## A class project for CMPSC 431W, Fall 2017
   <p>This is an eBay/Amazon-like project that provides a shopping platform. It supports buyer features such as **buying**, **selling**, **bidding** and **leave rating**. As sellers, you will be able to post **fixed-price vehicles** and **biddable vechicles**.</p>
+  <p>To view project report, click https://drive.google.com/file/d/0B5wIrUFGxCPrM19sbi03c041MFE/view?usp=sharing</p>
 ## Team Members and Tasks: 
 1. Yuehui (Vincent) Wang:
   * Website Development, Database Design, Report Writing

@@ -13,6 +13,8 @@
   * Database Design, Report Writing
 5. Dikan Chen:
   * Database Design, Report Writing
+6. Jiaxin Liang:
+  * Database Design, Report Writing
   
 ## Project Details: 
 **Website Home Page:** On the main page, people can view all of the vehicles actively listed on the website.

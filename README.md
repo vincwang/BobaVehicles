@@ -18,37 +18,31 @@
   
 ## Project Details: 
 **Website Home Page:** On the main page, people can view all of the vehicles actively listed on the website.
-<br>__Home Page__
 ![Home Page](./pics/home_page.png)
 
 **Application Design:** As a web application, Boba is designed with the **MCV Architecture Method**. It has MySql Database that manages all of the data of users, vehicles and transactions. Node.js is used as the controller that defines the logic between backend and frontend. Express View Engine is used to deliver the contents to users.
-<br>__MVC Design__
 ![App Design](./pics/Application_Design.png)
 
 **Database Design:** Relational Database that stores and manages information of users, vehicles and transactions.
-<br>__DB Schemas__
 ![DB Design](./pics/database_schema.png)
 
 **Item Page:** Users will be able to see more detailed information about the vehicle after clicking in. Details like ratings, vehicle description, seller, and bidding history will be shown on item page.
-<br>__Item Page__
 ![Item Page](./pics/item_page.png)
 
 **Login And Registration:** Users are being broken down to two categories - Sellers and Buyers.
-<br>__Login Page__
+Login Page
 ![login Page](./pics/login.png)
-<br>__Login Validation__
+Login Validation
 ![login warning Page](./pics/login_warning.png)
-(https://github.com/vincwang/BobaVehicles/blob/master/pics/login-warning.png)
-<br>__User Registration__
+User Registration
 ![Registration Page](./pics/sign_up_page.png)
-(https://github.com/vincwang/BobaVehicles/blob/master/pics/sign%20up%20page.png)
 
 **Seller:** On seller acount page, seller can view the status of sold and un-sold vehicles. Seller can also set vehicles to be on-sale as Clearance items if wanted.
-<br>__Seller Account Page__
+Seller Account Page
 ![seller Page](./pics/profile_page.png)
 
 **Buyer:** On buyer account page, buyer can view the status of orders. Buyer can also leave ratings to previous orders.
-<br>__Buyer Account Page__
+Buyer Account Page
 ![buyer Page](./pics/buyer_order_history.png)
-<br>__Buyer can leave rating__
+Buyer can leave rating
 ![buyer Page](./pics/rating.png)
